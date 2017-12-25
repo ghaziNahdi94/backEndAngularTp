@@ -90,6 +90,7 @@ private void openAllDb(){
 		
 			openAllDb();
 		
+			System.out.println("q:"+q);
 		
 		try {
 			PreparedStatement ps = con.prepareStatement(CHANGE_QUANTITY);

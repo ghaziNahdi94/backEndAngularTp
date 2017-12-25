@@ -11,38 +11,40 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import DAO.LivreDAO;
+import DAO.UserDAO;
 import Modele.Livre;
 
 /**
- * Servlet implementation class LivreServlet
+ * Servlet implementation class UserLivre
  */
-@WebServlet("/LivreServlet")
-public class LivreServlet extends HttpServlet {
+@WebServlet("/UserLivre")
+public class UserLivre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  
- 
-	
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		BufferedReader reader = request.getReader();
+
+		
+		
+		String email = request.getParameter("email");
+		
+		
 		Gson gson = new Gson();
 		
 		
 		
-		LivreDAO dao = new LivreDAO();
+		UserDAO dao = new UserDAO();
 		
-		Livre[] livres = dao.getAllLivres();
+		String[] livres = dao.getLivresByEmail(email);
 		
 		String json = new Gson().toJson(livres);
 		response.setContentType("application/json");
         response.getWriter().write(json);
-	
-	
+		
+		
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		
 		
@@ -53,14 +55,15 @@ public class LivreServlet extends HttpServlet {
 		
 		
 		
-		LivreDAO dao = new LivreDAO();
+		UserDAO dao = new UserDAO();
 		
 
-		for(Livre l : livres) {
+	
+		
 			
-			dao.changeLivreQuantityByTitle(l.getTitre(), l.getQuantity());
+			dao.addLivres(livres);
 			
-		}
+		
 		
 		
 		

@@ -65,7 +65,6 @@ public class LoginServlet extends HttpServlet {
 			
 			rep.setGoodEmail(true);
 			
-			
 			if(u.getPassword().equals(Base64.encodeBase64String(cr.getPassword().getBytes()))) {
 				
 				System.out.println("true");
